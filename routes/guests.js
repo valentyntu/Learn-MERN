@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secret');
+const passport = require('passport');
 
 const Guest = require('../models/Guest');
 const controller = require('../controllers/GuestController');
@@ -69,5 +70,15 @@ router.post('/login', (req, res) => {
     }
     })
 })
+
+router.get('/current', passport.authenticate('jwt', {session:false}),
+ (req, res) => {
+    res.json({
+        id: req.user.id,
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        email: req.user.email
+    });
+});
 
 module.exports = router;
