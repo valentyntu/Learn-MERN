@@ -22,4 +22,4 @@ class GuestController {
     }
 }
 
-module.exports = new GuestController()
+module.exports = new GuestController();
